@@ -1,0 +1,142 @@
+html {
+    font-family: 'Merriweather', serif;;
+}
+
+body {
+    margin: auto;
+    background-image: linear-gradient(90deg, #4e668a 25%, #889bb5 25%, #889bb5 50%, #4e668a 50%, #4e668a 75%, #889bb5 75%, #889bb5 100%);
+    background-size: 200.00px 200.00px;
+}
+
+.clicker {
+    margin: auto;
+    width: 30%;
+    height: 100%;
+    border-right: 10px solid white;
+}
+
+.middle-display {
+    margin: auto;
+    width: 55%;
+    overflow-y: auto;
+    border-right: 10px solid white;
+    background-color: #c0ffee;
+}
+
+.store {
+    margin: auto;
+    width: 15%;
+    display: table-column;
+}
+
+.store > div {
+    font-size: 30px;
+}
+
+.item {
+    height: 90px;
+    text-align: center;
+    color: white;
+    background-color: #8d8d8d;
+    border: 5px solid #aaaaaa;
+}
+
+.item:hover {
+    background-color: #555555;
+    cursor: pointer;
+}
+
+.clickerText {
+    text-align: center;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.clickerInfo {
+    padding-top: 15%;
+}
+
+.imageStack {
+    position: relative;
+}
+
+.babyParker {
+    position: absolute;
+    width: 80%;
+    top: 10%;
+    left: 10%;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+.shine {
+    position: relative;
+    width: 100%;
+    opacity: 50%;
+    left: -10px;
+}
+
+.rotate {
+    animation: rotation 20s infinite linear;
+}
+
+@keyframes rotation {
+    0% { opacity: 0.8; transform: rotate(0deg)}
+    50% { opacity: 0.5; transform: rotate(180deg)}
+    100% { opacity: 0.8; transform: rotate(359deg)}
+}
+
+.bounce {
+    animation: bounce 0.3s;
+    transform: scale(1.05);
+}
+  
+@keyframes bounce {
+    0% { transform: scale(0.95)}
+    40% { transform: scale(1.1)}
+    80% { transform: scale(0.99)}
+    100% { transform: scale(1.05)}
+}
+
+.bounce2 {
+    animation: bounce2 0.3s;
+    transform: scale(1.05);
+}
+
+@keyframes bounce2 {
+    0% { transform: scale(0.95)}
+    40% { transform: scale(1.1)}
+    80% { transform: scale(0.99)}
+    100% { transform: scale(1.05)}
+}
+
+.parkersBaked {
+    display: inline;
+    color: white;
+    font-size: 60px;
+}
+
+.persecondDiv {
+    display: block;
+    padding-bottom: 8px;
+}
+
+.parkerPerSecond {
+    display: inline;
+    color: white;
+    font-size: 30px;
+}
+
+.flex-container {
+    display: flex;
+    height: 100%;
+}
+  
+.flex-container > div {
+    margin: auto;
+    font-size: 30px;
+    height: 100%;
+}
