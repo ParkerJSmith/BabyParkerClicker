@@ -29,21 +29,51 @@ body {
     display: table-column;
 }
 
-.store > div {
-    font-size: 30px;
-}
-
 .item {
     height: 90px;
-    text-align: center;
-    color: white;
-    background-color: #8d8d8d;
-    border: 5px solid #aaaaaa;
+    margin: auto;
+    text-align: left;
+    color: #00ff00;
+    background-image: url('images/storeTile.png');
+    background-size: 385px;
+}
+
+.notAfford {
+    color: #ff0000;
+    background-image: url('images/storeTileSelect.png');
 }
 
 .item:hover {
-    background-color: #555555;
+    background-image: url('images/storeTileSelect.png');
     cursor: pointer;
+}
+
+.itemName {
+    position: absolute;
+    display: inline;
+    color: #ffffff;
+    text-shadow: 2px 2px 8px #000000;
+    font-size: 30px;
+    padding-left: 65px;
+    padding-top: 12px;
+    width: 70%;
+}
+
+.itemCost {
+    position: absolute;
+    text-shadow: 2px 2px 8px #000000;
+    padding-left: 65px;
+    padding-top: 44px;
+    font-size: 20px;
+}
+
+.itemNum {
+    position: absolute;
+    color: #3b3b3b;
+    font-size: 45px;
+    right: 10px;
+    padding-top: 14px;
+    opacity: 70%;
 }
 
 .clickerText {

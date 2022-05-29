@@ -75,6 +75,7 @@ document.getElementById("babyParker").addEventListener("click", parkerClicked);
 document.getElementById("babyParker").addEventListener("mouseover", animate);
 document.getElementById("babyParker").addEventListener("mouseout", animate);
 
+updateCosts();
 window.requestAnimationFrame(gameLoop);
 
 function gameLoop() {
@@ -84,6 +85,7 @@ function gameLoop() {
 
 function tick() {
     currentTime = Date.now();
+    checkCosts();
     addBuildingsRates();
     updateCount();
     blink();
@@ -98,7 +100,7 @@ function parkerClicked() {
 }
 
 function addBuildingsRates() {
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < buildings.length; i++) {
         totalParkers += buildings[i].owned * buildings[i].parkerRate * ((currentTime - lastTime) / 1000);
         alltimeParkers += buildings[i].owned * buildings[i].parkerRate * ((currentTime - lastTime) / 1000);
     }
@@ -115,26 +117,7 @@ function animate() {
 }
 
 function updateCount() {
-    let countText = totalParkers;
-    if (totalParkers >= 1000000000000000) {
-        countText /= 1000000000000000;
-        document.getElementById("parkersBaked").textContent = countText.toFixed(3) + " quadrillion";
-    } else if (totalParkers >= 1000000000000) {
-        countText /= 1000000000000;
-        document.getElementById("parkersBaked").textContent = countText.toFixed(3) + " trillion";
-    } else if (totalParkers >= 1000000000) {
-        countText /= 1000000000;
-        document.getElementById("parkersBaked").textContent = countText.toFixed(3) + " billion";
-    } else if (totalParkers >= 1000000) {
-        countText /= 1000000;
-        document.getElementById("parkersBaked").textContent = countText.toFixed(3) + " million";
-    } else if (totalParkers >= 100000) {
-        document.getElementById("parkersBaked").textContent = countText.toFixed(0).slice(0, 3) + "," + countText.toFixed(0).slice(3);
-    } else if (totalParkers >= 10000) {
-        document.getElementById("parkersBaked").textContent = countText.toFixed(0).slice(0, 2) + "," + countText.toFixed(0).slice(2);
-    } else {
-        document.getElementById("parkersBaked").textContent = countText.toFixed(0);
-    }
+    document.getElementById("parkersBaked").textContent = shortenNumString(totalParkers);
 }
 
 function buyBuilding(buildingNo) {
@@ -143,9 +126,26 @@ function buyBuilding(buildingNo) {
         buildings[buildingNo].owned++;
         parkersPerSecond += buildings[buildingNo].parkerRate;
         document.getElementById("parkerPerSecond").textContent = parkersPerSecond.toFixed(0);
+        updateCosts();
         console.log("Buy success, parkerRate: " + parkersPerSecond);
     } else {
         console.log("Insufficient funds, cost: " + buildings[buildingNo].getCurrentCost());
+    }
+}
+
+function checkCosts() {
+    for (let i = 0; i < buildings.length; i++) {
+        if (totalParkers > buildings[i].getCurrentCost()) {
+            document.getElementById("building" + i).classList.remove("notAfford");
+        } else {
+            document.getElementById("building" + i).classList.add("notAfford");
+        }
+    }
+}
+
+function updateCosts() {
+    for (let i = 0; i < buildings.length; i++) {
+        document.getElementById("itemCost" + i).textContent = shortenNumString(buildings[i].getCurrentCost());
     }
 }
 
@@ -177,6 +177,28 @@ function blink() {
                 blinkType = getRandomInt(1, 3);
             }
             break;
+    }
+}
+
+function shortenNumString(number) {
+    if (number >= 1000000000000000) {
+        number /= 1000000000000000;
+        return number.toFixed(3) + " quadrillion";
+    } else if (number >= 1000000000000) {
+        number /= 1000000000000;
+        return number.toFixed(3) + " trillion";
+    } else if (number >= 1000000000) {
+        number /= 1000000000;
+        return number.toFixed(3) + " billion";
+    } else if (number >= 1000000) {
+        number /= 1000000;
+        return number.toFixed(3) + " million";
+    } else if (number >= 100000) {
+        return number.toFixed(0).slice(0, 3) + "," + number.toFixed(0).slice(3);
+    } else if (number >= 10000) {
+        return number.toFixed(0).slice(0, 2) + "," + number.toFixed(0).slice(2);
+    } else {
+        return number.toFixed(0);
     }
 }
 
