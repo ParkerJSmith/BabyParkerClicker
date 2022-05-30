@@ -6,6 +6,8 @@ body {
     margin: auto;
     background-image: linear-gradient(90deg, #4e668a 25%, #889bb5 25%, #889bb5 50%, #4e668a 50%, #4e668a 75%, #889bb5 75%, #889bb5 100%);
     background-size: 200.00px 200.00px;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 .clicker {
@@ -34,8 +36,9 @@ body {
     margin: auto;
     text-align: left;
     color: #00ff00;
-    background-image: url('images/storeTile.png');
+    background-image: url('images/storeTileTest.png');
     background-size: 385px;
+    user-select: none;
 }
 
 .notAfford {
@@ -74,6 +77,12 @@ body {
     right: 10px;
     padding-top: 14px;
     opacity: 70%;
+}
+
+.itemIcon {
+    position: absolute;
+    width: 60px;
+    padding-top: 9px;
 }
 
 .clickerText {

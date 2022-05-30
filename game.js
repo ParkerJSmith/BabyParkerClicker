@@ -76,6 +76,7 @@ document.getElementById("babyParker").addEventListener("mouseover", animate);
 document.getElementById("babyParker").addEventListener("mouseout", animate);
 
 updateCosts();
+updateBuildingCounts();
 window.requestAnimationFrame(gameLoop);
 
 function gameLoop() {
@@ -127,6 +128,7 @@ function buyBuilding(buildingNo) {
         parkersPerSecond += buildings[buildingNo].parkerRate;
         document.getElementById("parkerPerSecond").textContent = parkersPerSecond.toFixed(0);
         updateCosts();
+        updateBuildingCounts();
         console.log("Buy success, parkerRate: " + parkersPerSecond);
     } else {
         console.log("Insufficient funds, cost: " + buildings[buildingNo].getCurrentCost());
@@ -146,6 +148,12 @@ function checkCosts() {
 function updateCosts() {
     for (let i = 0; i < buildings.length; i++) {
         document.getElementById("itemCost" + i).textContent = shortenNumString(buildings[i].getCurrentCost());
+    }
+}
+
+function updateBuildingCounts() {
+    for (let i = 0; i < buildings.length; i++) {
+        document.getElementById("itemNum" + i).textContent = buildings[i].owned;
     }
 }
 
