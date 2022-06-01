@@ -74,6 +74,7 @@ var lastTime = currentTime;
 document.getElementById("babyParker").addEventListener("click", parkerClicked);
 document.getElementById("babyParker").addEventListener("mouseover", animate);
 document.getElementById("babyParker").addEventListener("mouseout", animate);
+document.getElementById("surpriseButton").addEventListener("click", surprise);
 
 updateCosts();
 updateBuildingCounts();
@@ -86,8 +87,8 @@ function gameLoop() {
 
 function tick() {
     currentTime = Date.now();
-    checkCosts();
     addBuildingsRates();
+    checkCosts();
     updateCount();
     blink();
     lastTime = currentTime;
@@ -96,6 +97,7 @@ function tick() {
 function parkerClicked() {
     totalParkers += parkersPerClick;
     alltimeParkers += parkersPerClick;
+    checkCosts();
     updateCount();
     animate();
 }
@@ -118,7 +120,7 @@ function animate() {
 }
 
 function updateCount() {
-    document.getElementById("parkersBaked").textContent = shortenNumString(totalParkers);
+    document.getElementById("parkersBaked").textContent = shortenNumString(Math.floor(totalParkers));
 }
 
 function buyBuilding(buildingNo) {
@@ -137,7 +139,7 @@ function buyBuilding(buildingNo) {
 
 function checkCosts() {
     for (let i = 0; i < buildings.length; i++) {
-        if (totalParkers > buildings[i].getCurrentCost()) {
+        if (totalParkers >= buildings[i].getCurrentCost()) {
             document.getElementById("building" + i).classList.remove("notAfford");
         } else {
             document.getElementById("building" + i).classList.add("notAfford");
@@ -214,4 +216,9 @@ function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+}
+
+function surprise() {
+    let bruh = new Audio("sounds/bruh.mp3");
+    bruh.play();
 }
