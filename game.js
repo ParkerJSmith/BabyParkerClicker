@@ -196,6 +196,13 @@ function animate() {
         document.getElementById('babyParkerBlink').classList.add("bounce");
         document.getElementById('babyParkerBlink').classList.remove("bounce2");
     }
+    if (document.getElementById('babyParkerWink').classList.contains("bounce")) {
+        document.getElementById('babyParkerWink').classList.add("bounce2");
+        document.getElementById('babyParkerWink').classList.remove("bounce");
+    } else {
+        document.getElementById('babyParkerWink').classList.add("bounce");
+        document.getElementById('babyParkerWink').classList.remove("bounce2");
+    }
 }
 
 function updateCount() {
