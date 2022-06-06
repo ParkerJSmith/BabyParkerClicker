@@ -70,8 +70,8 @@ document.getElementById("building9").addEventListener("click", () => {
 // Animation variables
 var blinkCounter = 0;
 var blinkType = getRandomInt(1, 3);
-const randomMin = 200;
-const randomMax = 300;
+const randomMin = 2000;
+const randomMax = 3000;
 var randomInterval = getRandomInt(randomMin, randomMax);
 
 document.getElementById("canvas").width = window.innerWidth;
