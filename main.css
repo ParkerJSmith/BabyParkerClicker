@@ -215,26 +215,24 @@ body {
 
 .bounce {
     animation: bounce 0.3s;
-    transform: scale(1.05);
 }
   
 @keyframes bounce {
     0% { transform: scale(0.95)}
     40% { transform: scale(1.1)}
     80% { transform: scale(0.99)}
-    100% { transform: scale(1.05)}
+    100% { transform: scale(1.0)}
 }
 
 .bounce2 {
     animation: bounce2 0.3s;
-    transform: scale(1.05);
 }
 
 @keyframes bounce2 {
     0% { transform: scale(0.95)}
     40% { transform: scale(1.1)}
     80% { transform: scale(0.99)}
-    100% { transform: scale(1.05)}
+    100% { transform: scale(1.0)}
 }
 
 .parkersBaked {
@@ -398,4 +396,8 @@ canvas {
 
 .mainGame {
     display: block;
+}
+
+.interactionOff {
+    pointer-events: none;
 }

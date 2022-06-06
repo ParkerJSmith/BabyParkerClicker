@@ -1,4 +1,5 @@
-document.getElementById("babyParker").src = "images/BabyParker.png";
+document.getElementById("babyParkerBlink").style.opacity = 0;
+document.getElementById("babyParkerWink").style.opacity = 0;
 
 // Game Stats
 var totalParkers = 0;
@@ -69,8 +70,8 @@ document.getElementById("building9").addEventListener("click", () => {
 // Animation variables
 var blinkCounter = 0;
 var blinkType = getRandomInt(1, 3);
-const randomMin = 2000;
-const randomMax = 3000;
+const randomMin = 200;
+const randomMax = 300;
 var randomInterval = getRandomInt(randomMin, randomMax);
 
 document.getElementById("canvas").width = window.innerWidth;
@@ -188,6 +189,13 @@ function animate() {
         document.getElementById('babyParker').classList.add("bounce");
         document.getElementById('babyParker').classList.remove("bounce2");
     }
+    if (document.getElementById('babyParkerBlink').classList.contains("bounce")) {
+        document.getElementById('babyParkerBlink').classList.add("bounce2");
+        document.getElementById('babyParkerBlink').classList.remove("bounce");
+    } else {
+        document.getElementById('babyParkerBlink').classList.add("bounce");
+        document.getElementById('babyParkerBlink').classList.remove("bounce2");
+    }
 }
 
 function updateCount() {
@@ -237,13 +245,13 @@ function blink() {
     switch (blinkType) {
         case 1:
             if (blinkCounter == randomInterval) {
-                document.getElementById("babyParker").src = "images/BabyParkerBlink.png";
+                document.getElementById("babyParkerBlink").style.opacity = 1.0;
             } else if (blinkCounter == 10 + randomInterval) {
-                document.getElementById("babyParker").src = "images/BabyParker.png";
+                document.getElementById("babyParkerBlink").style.opacity = 0;
             } else if (blinkCounter == 20 + randomInterval) {
-                document.getElementById("babyParker").src = "images/BabyParkerBlink.png";
+                document.getElementById("babyParkerBlink").style.opacity = 1.0;
             } else if (blinkCounter == 30 + randomInterval) {
-                document.getElementById("babyParker").src = "images/BabyParker.png";
+                document.getElementById("babyParkerBlink").style.opacity = 0;
                 blinkCounter = 0;
                 randomInterval = getRandomInt(randomMin, randomMax);
                 blinkType = getRandomInt(1, 4);
@@ -251,9 +259,9 @@ function blink() {
             break;
         case 2:
             if (blinkCounter == randomInterval) {
-                document.getElementById("babyParker").src = "images/BabyParkerBlink.png";
+                document.getElementById("babyParkerBlink").style.opacity = 1.0;
             } else if (blinkCounter == 10 + randomInterval) {
-                document.getElementById("babyParker").src = "images/BabyParker.png";
+                document.getElementById("babyParkerBlink").style.opacity = 0;
                 blinkCounter = 0;
                 randomInterval = getRandomInt(randomMin, randomMax);
                 blinkType = getRandomInt(1, 4);
@@ -267,13 +275,13 @@ function blink() {
                     blinkType = getRandomInt(1, 4);
                     break;
                 }
-                document.getElementById("babyParker").src = "images/BabyParkerWink.png";
+                document.getElementById("babyParkerWink").style.opacity = 1.0;
                 if (!muted) {
                     let wink = new Audio("sounds/gameboy.mp3");
                     wink.play();
                 }
             } else if (blinkCounter == 80 + randomInterval) {
-                document.getElementById("babyParker").src = "images/BabyParker.png";
+                document.getElementById("babyParkerWink").style.opacity = 0;
                 blinkCounter = 0;
                 randomInterval = getRandomInt(randomMin, randomMax);
                 blinkType = getRandomInt(1, 4);
