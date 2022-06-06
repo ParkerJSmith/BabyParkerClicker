@@ -3,10 +3,14 @@ var totalParkers = 0;
 var alltimeParkers = 0;
 var parkersPerClick = 1;
 var parkersPerSecond = 0;
+var totalClicks = 0;
+
+// Options
+var muted = false;
 
 // Game Items
 class Building {
-    constructor( name, basecost, parkerRate) {
+    constructor(name, basecost, parkerRate) {
         this.basecost = basecost;
         this.owned = 0;
         this.name = name;
@@ -18,7 +22,7 @@ class Building {
     }
 }
 const buildings = [10];
-buildings[0] = new Building("Baby Trevor", 15, 0.1);
+buildings[0] = new Building("Baby Trevor", 15, 0.2);
 buildings[1] = new Building("Baby Daniel", 100, 1);
 buildings[2] = new Building("Baby Ian", 1100, 8);
 buildings[3] = new Building("Baby Joey", 12000, 47);
@@ -67,14 +71,61 @@ const randomMin = 2000;
 const randomMax = 3000;
 var randomInterval = getRandomInt(randomMin, randomMax);
 
+document.getElementById("canvas").width = window.innerWidth;
+document.getElementById("canvas").height = window.innerHeight;
+var ctx = document.getElementById("canvas").getContext("2d");
+
+var ticker = false;
+
+var renderList = [];
+
+class ScreenText {
+    constructor(text, xPos, yPos) {
+        this.text = text;
+        this.creationTime = Date.now();
+        if (ticker) {
+            this.xPos = xPos + 5;
+            ticker = !ticker;
+        } else {
+            this.xPos = xPos - 5
+            ticker = !ticker;
+        }
+        this.yPos = yPos;
+        this.opacity = 1;
+    }
+
+    render() {
+        ctx.fillStyle = "rgba(255, 255, 255, " + this.opacity + ")";
+        ctx.font = "40px Merriweather"
+        ctx.fillText(this.text, this.xPos, this.yPos);
+    }
+
+    tick() {
+        this.yPos -= 1;
+        this.opacity -= 0.005;
+        if (this.opacity <= 0) {
+            delete this;
+        }
+    }
+}
+
 // Game loop
 var currentTime = Date.now();
 var lastTime = currentTime;
 
+// Event listeners
 document.getElementById("babyParker").addEventListener("click", parkerClicked);
 document.getElementById("babyParker").addEventListener("mouseover", animate);
 document.getElementById("babyParker").addEventListener("mouseout", animate);
+
+document.getElementById("options").addEventListener("click", options);
+document.getElementById("stats").addEventListener("click", stats);
+document.getElementById("info").addEventListener("click", info);
 document.getElementById("surpriseButton").addEventListener("click", surprise);
+
+document.getElementById("muteButton").addEventListener("click", muteToggle);
+
+window.addEventListener('resize', resizeCanvas);
 
 updateCosts();
 updateBuildingCounts();
@@ -82,6 +133,7 @@ window.requestAnimationFrame(gameLoop);
 
 function gameLoop() {
     tick();
+    render();
     window.requestAnimationFrame(gameLoop);
 }
 
@@ -91,15 +143,32 @@ function tick() {
     checkCosts();
     updateCount();
     blink();
+    updateStats();
+    for (let i = 0; i < renderList.length; i++) {
+        renderList[i].tick();
+    }
     lastTime = currentTime;
 }
 
-function parkerClicked() {
+function render() {
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    for (let i = 0; i < renderList.length; i++) {
+        if (renderList[i].opacity <= 0) {
+            renderList.shift();
+            continue;
+        }
+        renderList[i].render();
+    }
+}
+
+function parkerClicked(event) {
     totalParkers += parkersPerClick;
     alltimeParkers += parkersPerClick;
+    totalClicks++;
     checkCosts();
     updateCount();
     animate();
+    createScreenText(event);
 }
 
 function addBuildingsRates() {
@@ -120,7 +189,7 @@ function animate() {
 }
 
 function updateCount() {
-    document.getElementById("parkersBaked").textContent = shortenNumString(Math.floor(totalParkers));
+    document.getElementById("parkersBaked").textContent = shortenNumString(Math.floor(totalParkers), 3);
 }
 
 function buyBuilding(buildingNo) {
@@ -128,7 +197,8 @@ function buyBuilding(buildingNo) {
         totalParkers -= buildings[buildingNo].getCurrentCost();
         buildings[buildingNo].owned++;
         parkersPerSecond += buildings[buildingNo].parkerRate;
-        document.getElementById("parkerPerSecond").textContent = parkersPerSecond.toFixed(0);
+        parkersPerClick += buildings[buildingNo].parkerRate * 0.1;
+        document.getElementById("parkerPerSecond").textContent = shortenNumString(parkersPerSecond, 3);
         updateCosts();
         updateBuildingCounts();
         console.log("Buy success, parkerRate: " + parkersPerSecond);
@@ -149,7 +219,7 @@ function checkCosts() {
 
 function updateCosts() {
     for (let i = 0; i < buildings.length; i++) {
-        document.getElementById("itemCost" + i).textContent = shortenNumString(buildings[i].getCurrentCost());
+        document.getElementById("itemCost" + i).textContent = shortenNumString(buildings[i].getCurrentCost(), 3);
     }
 }
 
@@ -174,7 +244,7 @@ function blink() {
                 document.getElementById("babyParker").src = "images/BabyParker.png";
                 blinkCounter = 0;
                 randomInterval = getRandomInt(randomMin, randomMax);
-                blinkType = getRandomInt(1, 3);
+                blinkType = getRandomInt(1, 4);
             }
             break;
         case 2:
@@ -184,25 +254,48 @@ function blink() {
                 document.getElementById("babyParker").src = "images/BabyParker.png";
                 blinkCounter = 0;
                 randomInterval = getRandomInt(randomMin, randomMax);
-                blinkType = getRandomInt(1, 3);
+                blinkType = getRandomInt(1, 4);
             }
             break;
+        case 3:
+            if (blinkCounter == randomInterval) {
+                if (getRandomInt(1, 100) > 20) {
+                    blinkCounter = 0;
+                    randomInterval = getRandomInt(randomMin / 10, randomMax / 10);
+                    blinkType = getRandomInt(1, 4);
+                    break;
+                }
+                document.getElementById("babyParker").src = "images/BabyParkerWink.png";
+                if (!muted) {
+                    let wink = new Audio("sounds/gameboy.mp3");
+                    wink.play();
+                }
+            } else if (blinkCounter == 80 + randomInterval) {
+                document.getElementById("babyParker").src = "images/BabyParker.png";
+                blinkCounter = 0;
+                randomInterval = getRandomInt(randomMin, randomMax);
+                blinkType = getRandomInt(1, 4);
+            }
     }
 }
 
-function shortenNumString(number) {
+function shortenNumString(number, decimalPoints) {
+    if (number < 10) {
+        return parseFloat(number.toFixed(decimalPoints));
+    }
+
     if (number >= 1000000000000000) {
         number /= 1000000000000000;
-        return number.toFixed(3) + " quadrillion";
+        return parseFloat(number.toFixed(decimalPoints)) + " quadrillion";
     } else if (number >= 1000000000000) {
         number /= 1000000000000;
-        return number.toFixed(3) + " trillion";
+        return parseFloat(number.toFixed(decimalPoints)) + " trillion";
     } else if (number >= 1000000000) {
         number /= 1000000000;
-        return number.toFixed(3) + " billion";
+        return parseFloat(number.toFixed(decimalPoints)) + " billion";
     } else if (number >= 1000000) {
         number /= 1000000;
-        return number.toFixed(3) + " million";
+        return parseFloat(number.toFixed(decimalPoints)) + " million";
     } else if (number >= 100000) {
         return number.toFixed(0).slice(0, 3) + "," + number.toFixed(0).slice(3);
     } else if (number >= 10000) {
@@ -215,10 +308,74 @@ function shortenNumString(number) {
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+    return Math.floor(Math.random() * (max - min) + min);
 }
 
 function surprise() {
-    let bruh = new Audio("sounds/bruh.mp3");
-    bruh.play();
+    if (!muted) {
+        let bruh = new Audio("sounds/bruh.mp3");
+        bruh.play();
+    }
+}
+
+function options() {
+    if (document.getElementById("optionsScreen").style.display == "block") {
+        document.getElementById("optionsScreen").style.display = "none";
+        document.getElementById("mainGame").style.display = "block";
+    } else {
+        hideAllDisplays();
+        document.getElementById("optionsScreen").style.display = "block";
+    }
+}
+
+function stats() {
+    if (document.getElementById("statsScreen").style.display == "block") {
+        document.getElementById("statsScreen").style.display = "none";
+        document.getElementById("mainGame").style.display = "block";
+    } else {
+        hideAllDisplays();
+        document.getElementById("statsScreen").style.display = "block";
+    }
+}
+
+function info() {
+    if (document.getElementById("updateLog").style.display == "block") {
+        document.getElementById("updateLog").style.display = "none";
+        document.getElementById("mainGame").style.display = "block";
+    } else {
+        hideAllDisplays();
+        document.getElementById("updateLog").style.display = "block";
+    }
+}
+
+function hideAllDisplays() {
+    document.getElementById("updateLog").style.display = "none";
+    document.getElementById("statsScreen").style.display = "none";
+    document.getElementById("optionsScreen").style.display = "none";
+}
+
+function resizeCanvas() {
+    document.getElementById("canvas").width = window.innerWidth;
+    document.getElementById("canvas").height = window.innerHeight;
+}
+
+function createScreenText(event) {
+    renderList.push(new ScreenText("+" + shortenNumString(parkersPerClick, 3), event.clientX - 25, event.clientY + 25));
+}
+
+function updateStats() {
+    document.getElementById("allTimeParker").textContent = shortenNumString(Math.floor(alltimeParkers), 3);
+    document.getElementById("totalClicks").textContent = shortenNumString(Math.floor(totalClicks), 0);
+}
+
+function muteToggle() {
+    if (document.getElementById("muteButton").classList.contains("toggled")) {
+        document.getElementById("muteButton").classList.remove("toggled");
+        document.getElementById("muteButtonText").textContent = "Mute: Off";
+        muted = false;
+    } else {
+        document.getElementById("muteButton").classList.add("toggled");
+        document.getElementById("muteButtonText").textContent = "Mute: On";
+        muted = true;
+    }
 }

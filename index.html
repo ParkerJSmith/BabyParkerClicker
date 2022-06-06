@@ -8,6 +8,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&display=swap" rel="stylesheet">
     </head>
     <body>
+        <canvas id="canvas">
+            terst
+        </canvas>
         <div class="flex-container">
             <div class="clicker" id="clickerDiv">
                 <div class="clickerInfo">
@@ -60,75 +63,170 @@
                         </div>
                     </div>
                 </div>
-                <div class="main-screen">
+                <div class="mainScreen">
+                    <div class="mainGame" id="mainGame">
+
+                    </div>
+                    <div class="optionsScreen" id="optionsScreen">
+                        <div class="pageTitleDiv">
+                            <div class="pageTitle">
+                                Options
+                            </div>
+                        </div>
+                        <div class="optionDiv">
+                            <div class="optionToggleButton" id="muteButton">
+                                <div class="toggleText" id="muteButtonText">
+                                    Mute: Off
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="statsScreen" id="statsScreen">
+                        <div class="pageTitleDiv">
+                            <div class="pageTitle">
+                                Stats
+                            </div>
+                        </div>
+                        <div class="statDiv">
+                            <div class="statName">
+                                Parkers Created (all time):
+                            </div>
+                            <div class="statNumber" id="allTimeParker">
+                                0
+                            </div>
+                        </div>
+                        <div class="statDiv">
+                            <div class="statName">
+                                Total Parker Clicks:
+                            </div>
+                            <div class="statNumber" id="totalClicks">
+                                0
+                            </div>
+                        </div>
+                    </div>
                     <div class="updateLog" id="updateLog">
-                        <h1>Baby Parker Clicker v1.0</h1>
-                        <p>Features added:</p>
-                        <p>    - Various features! Added to the game!</p>
-                        <p>    - Laughs, gags, maybe even good times....</p>
+                        <div class="logEntry">
+                            <div class="version">Baby Parker Clicker v1.1.0</div>
+                            <div class="date">2022/06/03</div>
+                            <div class="featuresHeader">Features added:</div>
+                            <div class="featuresItem">- Clicking gains now gains 0.1 of per second rate</div>
+                            <div class="featuresItem">- Graphical improvements</div>
+                            <div class="featuresItem">- Scaling for different window sizes</div>
+                            <div class="featuresItem">- Options and stats added</div>
+                        </div>
+                        <div class="dividerContainer">
+                            <div class="textDivider"></div>
+                        </div>
+                        <div class="logEntry">
+                            <div class="version">Baby Parker Clicker v1.0.0</div>
+                            <div class="date">2022/06/01</div>
+                            <div class="featuresHeader">Features added:</div>
+                            <div class="featuresItem">- Various features! Added to the game!</div>
+                            <div class="featuresItem">- Laughs, gags, maybe even good times....</div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="store">
                 <div class="item notAfford" id="building0">
                     <img src="images/korosan.png" class="itemIcon"></img>
-                    <div class="itemName">Baby Trevor</div>
-                    <div class="itemNum" id="itemNum0">0</div>
-                    <div class="itemCost" id="itemCost0">15</div>
+                    <div class="itemInfoDiv">
+                        <div class="itemName">Baby Trevor</div>
+                        <div class="itemCost" id="itemCost0">15</div>
+                    </div>
+                    <div class="itemNum">
+                        <div class="itemNumText" id="itemNum0">0</div>
+                    </div>
                 </div>
                 <div class="item notAfford" id="building1">
-                    <img src="images/korosan.png" class="itemIcon"></img>                  
-                    <div class="itemName">Baby Daniel</div>
-                    <div class="itemCost" id="itemCost1">15</div>
-                    <div class="itemNum" id="itemNum1">0</div>
+                    <img src="images/korosan.png" class="itemIcon"></img>
+                    <div class="itemInfoDiv">                  
+                        <div class="itemName">Baby Daniel</div>
+                        <div class="itemCost" id="itemCost1">15</div>
+                    </div>
+                    <div class="itemNum">
+                        <div class="itemNumText" id="itemNum1">0</div>
+                    </div>
                 </div>
                 <div class="item notAfford" id="building2">
                     <img src="images/korosan.png" class="itemIcon"></img>
-                    <div class="itemName">Baby Ian</div>
-                    <div class="itemCost" id="itemCost2">15</div>
-                    <div class="itemNum" id="itemNum2">0</div>
+                    <div class="itemInfoDiv">
+                        <div class="itemName">Baby Ian</div>
+                        <div class="itemCost" id="itemCost2">15</div>
+                    </div>
+                    <div class="itemNum">
+                        <div class="itemNumText" id="itemNum2">0</div>
+                    </div>
                 </div>
                 <div class="item notAfford" id="building3">
                     <img src="images/korosan.png" class="itemIcon"></img>
-                    <div class="itemName">Baby Joey</div>
-                    <div class="itemCost" id="itemCost3">15</div>
-                    <div class="itemNum" id="itemNum3">0</div>
+                    <div class="itemInfoDiv">
+                        <div class="itemName">Baby Joey</div>
+                        <div class="itemCost" id="itemCost3">15</div>
+                    </div>
+                    <div class="itemNum">
+                        <div class="itemNumText" id="itemNum3">0</div>
+                    </div>
                 </div>
                 <div class="item notAfford" id="building4">
                     <img src="images/korosan.png" class="itemIcon"></img>
-                    <div class="itemName">Baby Nic</div>
-                    <div class="itemCost" id="itemCost4">15</div>
-                    <div class="itemNum" id="itemNum4">0</div>
+                    <div class="itemInfoDiv">
+                        <div class="itemName">Baby Nic</div>
+                        <div class="itemCost" id="itemCost4">15</div>
+                    </div>
+                    <div class="itemNum">
+                        <div class="itemNumText" id="itemNum4">0</div>
+                    </div>
                 </div>
                 <div class="item notAfford" id="building5">
                     <img src="images/korosan.png" class="itemIcon"></img>
-                    <div class="itemName">Build-a-Parker</div>
-                    <div class="itemCost" id="itemCost5">15</div>
-                    <div class="itemNum" id="itemNum5">0</div>
+                    <div class="itemInfoDiv">
+                        <div class="itemName">Build-a-Parker</div>
+                        <div class="itemCost" id="itemCost5">15</div>
+                    </div>
+                    <div class="itemNum">
+                        <div class="itemNumText" id="itemNum5">0</div>
+                    </div>
                 </div>
                 <div class="item notAfford" id="building6">
                     <img src="images/korosan.png" class="itemIcon"></img>
-                    <div class="itemName">Sbeve</div>
-                    <div class="itemCost" id="itemCost6">15</div>
-                    <div class="itemNum" id="itemNum6">0</div>
+                    <div class="itemInfoDiv">
+                        <div class="itemName">Sbeve</div>
+                        <div class="itemCost" id="itemCost6">15</div>
+                    </div>
+                    <div class="itemNum">
+                        <div class="itemNumText" id="itemNum6">0</div>
+                    </div>
                 </div>
                 <div class="item notAfford" id="building7">
                     <img src="images/korosan.png" class="itemIcon"></img>
-                    <div class="itemName">Dubai Portal</div>
-                    <div class="itemCost" id="itemCost7">15</div>
-                    <div class="itemNum" id="itemNum7">0</div>
+                    <div class="itemInfoDiv">
+                        <div class="itemName">Dubai Portal</div>
+                        <div class="itemCost" id="itemCost7">15</div>
+                    </div>
+                    <div class="itemNum">
+                        <div class="itemNumText" id="itemNum7">0</div>
+                    </div>
                 </div>
                 <div class="item notAfford" id="building8">
                     <img src="images/korosan.png" class="itemIcon"></img>
-                    <div class="itemName">Art Hoe Con</div>
-                    <div class="itemCost" id="itemCost8">15</div>
-                    <div class="itemNum" id="itemNum8">0</div>
+                    <div class="itemInfoDiv">
+                        <div class="itemName">Art Hoe Con</div>
+                        <div class="itemCost" id="itemCost8">15</div>
+                    </div>
+                    <div class="itemNum">
+                        <div class="itemNumText" id="itemNum8">0</div>
+                    </div>
                 </div>
                 <div class="item notAfford" id="building9">
                     <img src="images/korosan.png" class="itemIcon"></img>
-                    <div class="itemName">Vtuber stream</div>
-                    <div class="itemCost" id="itemCost9">15</div>
-                    <div class="itemNum" id="itemNum9">0</div>
+                    <div class="itemInfoDiv">
+                        <div class="itemName">Vtuber stream</div>
+                        <div class="itemCost" id="itemCost9">15</div>
+                    </div>
+                    <div class="itemNum">
+                        <div class="itemNumText" id="itemNum9">0</div>
+                    </div>
                 </div>
             </div>
         </div>

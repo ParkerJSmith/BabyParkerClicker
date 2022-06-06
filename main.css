@@ -1,5 +1,5 @@
 html {
-    font-family: 'Merriweather', serif;;
+    font-family: 'Merriweather', serif;
 }
 
 body {
@@ -7,11 +7,12 @@ body {
     background-image: linear-gradient(90deg, #4e668a 25%, #889bb5 25%, #889bb5 50%, #4e668a 50%, #4e668a 75%, #889bb5 75%, #889bb5 100%);
     background-size: 200.00px 200.00px;
     max-width: 100%;
+    max-height: 100%;
     overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .clicker {
-    margin: auto;
     width: 30%;
     height: 100%;
     border-right: 10px solid white;
@@ -20,6 +21,7 @@ body {
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
+    box-shadow: inset 0px 0px 20px 5px #000000;
 }
 
 .middle-display {
@@ -29,19 +31,24 @@ body {
     border-right: 10px solid white;
     display: flex;
     flex-direction: column;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 .store {
-    margin: auto;
-    flex-grow: 0;     /* do not grow   - initial value: 0 */
-    flex-shrink: 0;   /* do not shrink - initial value: 1 */
-    flex-basis: 385px; /* width/height  - initial value: auto */
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: 385px;
+    min-width: 365px;
     display: table-column;
+    box-shadow: inset 0px 0px 20px 5px #000000;
+    overflow-y: auto;
 }
 
 .item {
     height: 90px;
     margin: auto;
+    display: flex;
     text-align: left;
     color: #00ff00;
     background-image: url('images/storeTileTest.png');
@@ -59,37 +66,45 @@ body {
     cursor: pointer;
 }
 
+.itemInfoDiv {
+    flex-basis: auto;
+    flex-grow: 1;
+    flex-shrink: 1;
+    display: flex;
+    flex-direction: column;
+    padding-left: 13px;
+}
+
 .itemName {
-    position: absolute;
     display: inline;
     color: #ffffff;
     text-shadow: 2px 2px 8px #000000;
     font-size: 30px;
-    padding-left: 65px;
     padding-top: 12px;
-    width: 70%;
 }
 
 .itemCost {
-    position: absolute;
     text-shadow: 2px 2px 8px #000000;
-    padding-left: 65px;
-    padding-top: 44px;
     font-size: 20px;
 }
 
 .itemNum {
-    position: absolute;
+    flex-basis: auto;
+    text-align: right;
+}
+
+.itemNumText {
+    opacity: 70%;
     color: #3b3b3b;
     font-size: 45px;
-    right: 10px;
     padding-top: 14px;
-    opacity: 70%;
+    padding-right: 5px;
 }
 
 .itemIcon {
-    position: absolute;
-    width: 60px;
+    flex-basis: 60px;
+    flex-grow: 0;
+    flex-shrink: 0;
     padding-top: 9px;
 }
 
@@ -112,6 +127,7 @@ body {
     width: 80%;
     top: 10%;
     left: 10%;
+    cursor: pointer;
     -webkit-user-drag: none;
     user-select: none;
     -moz-user-select: none;
@@ -123,50 +139,51 @@ body {
     box-shadow: inset 0px 0px 20px 5px #000000;
     display: flex;
     width: 100%;
-    height: 133px;
+    height: 11.2%;
+    min-height: 90px;
 }
 
 .buttonColumn {
     height: 100%;
-    flex-grow: 0;     /* do not grow   - initial value: 0 */
-    flex-shrink: 0;   /* do not shrink - initial value: 1 */
-    flex-basis: 150px; /* width/height  - initial value: auto */
-}
-
-.buttonText {
-    padding-top: 14px;
-}
-
-.textSplashDiv {
-    height: 133px;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    text-shadow: 2px 2px 8px #000000;
-    box-shadow: inset 0px 0px 50px 2px #000000;
-}
-
-.textSplash {
-    padding-top: 40px;
-    color: white;
+    width: 5.9vw;
+    min-width: 110px;
 }
 
 .topButton {
     background-color: #5b53c7;
     opacity: 100%;
     height: 50%;
-    width: 150px;
+    width: 100%;
     text-align: center;
     color: #ffffff;
     user-select: none;
+    cursor: pointer;
+}
+
+.buttonText {
+    padding-top: 1vh;
+    font-size: max(22px, 1.2vw);
+}
+
+.textSplashDiv {
+    height: 133px;
+    flex: 1 1 78.5%;
+    text-align: center;
+    text-shadow: 2px 2px 8px #000000;
+    box-shadow: inset 0px 0px 50px 2px #000000;
+}
+
+.textSplash {
+    padding-top: 3.2vh;
+    font-size: 1.2vw;
+    color: white;
 }
 
 .topButton:hover {
     box-shadow: inset 0px 0px 20px 5px #000000;
 }
 
-.main-screen {
+.mainScreen {
     background-color: #444444;
     background-image: url("images/darkNoise.jpg");
     border-top: 10px solid white;
@@ -260,14 +277,125 @@ body {
 }
 
 .updateLog {
-    padding-left: 15px;
     color: white;
 }
 
-h1 {
-    font-size: 40px;
+.logEntry {
+    padding-left: 15px;
 }
 
-p {
+.version {
+    font-size: 40px;
+    padding-top: 15px;
+    padding-bottom: 5px;
+}
+
+.date {
     font-size: 20px;
+    padding-bottom: 5px;
+    color:#505050;
+}
+
+.featuresHeader {
+    font-size: 20px;
+    padding-bottom: 10px;
+}
+
+.featuresItem {
+    font-size: 20px;
+    padding-left: 20px;
+    padding-bottom: 10px;
+}
+
+.dividerContainer {
+    padding-top: 10px;
+}
+
+.textDivider {
+    width: 100%;
+    height: 1px;
+    background-color: #ffffff;
+}
+
+.optionsScreen {
+    display: none;
+    color: white;
+}
+
+.optionDiv {
+    width: 100%;
+    padding-left: 15px;
+    padding-top: 15px;
+    user-select: none;
+}
+
+.optionToggleButton {
+    background-color: #101010;
+    color: #707070;
+    width: 130px;
+    height: 40px;
+    text-align: center;
+    border: 1px solid #909090;
+}
+
+.optionToggleButton:hover {
+    border: 1px solid #ffffff;
+    cursor: pointer;
+}
+
+.toggled {
+    color: white;
+    box-shadow: inset 0px 0px 10px 1px #404040;
+}
+
+.toggleText {
+    font-size: 18px;
+    padding-top: 7%;
+}
+
+.statsScreen {
+    display: none;
+    color: white;
+}
+
+.statDiv {
+    padding-left: 15px;
+    padding-top: 10px;
+    display: block;
+}
+
+.statName {
+    font-size: 18px;
+    display: inline;
+}
+
+.statNumber {
+    font-size: 18px;
+    display: inline;
+}
+
+.pageTitleDiv {
+    text-align: center;
+}
+
+.pageTitle {
+    padding-top: 15px;
+    font-size: calc(18px + 2.2vh);
+    border: 1px solid #909090;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    pointer-events: none;
+}
+
+.mainGame {
+    display: block;
 }
