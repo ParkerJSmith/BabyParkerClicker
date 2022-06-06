@@ -1,3 +1,5 @@
+document.getElementById("babyParker").src = "images/BabyParker.png";
+
 // Game Stats
 var totalParkers = 0;
 var alltimeParkers = 0;
