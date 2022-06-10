@@ -31,9 +31,9 @@ buildings[2] = new Building("Baby Ian", 1100, 8);
 buildings[3] = new Building("Baby Joey", 12000, 47);
 buildings[4] = new Building("Baby Nic", 130000, 260);
 buildings[5] = new Building("Park-a-Stan", 1400000, 1400);
-buildings[6] = new Building("Sbeve", 20000000, 7800);
+buildings[6] = new Building("Place Japan", 20000000, 7800);
 buildings[7] = new Building("Dubai Portal", 330000000, 44000);
-buildings[8] = new Building("Art Hoe Convention", 5100000000, 260000);
+buildings[8] = new Building("smu2mu2", 5100000000, 260000);
 buildings[9] = new Building("Vtuber Stream", 75000000000, 1600000);
 
 document.getElementById("building0").addEventListener("click", () => {
@@ -68,8 +68,8 @@ document.getElementById("building9").addEventListener("click", () => {
 });
 
 // Sounds
-var bruhSound = new Audio("sounds/bruh.mp3");
-var winkSound = new Audio("sounds/gameboy.mp3");
+const bruhSound = new Audio("sounds/bruh.mp3");
+const winkSound = new Audio("sounds/gameboy.mp3");
 
 // Animation variables
 var blinkCounter = 0;
