@@ -30,7 +30,7 @@ buildings[1] = new Building("Baby Daniel", 100, 1);
 buildings[2] = new Building("Baby Ian", 1100, 8);
 buildings[3] = new Building("Baby Joey", 12000, 47);
 buildings[4] = new Building("Baby Nic", 130000, 260);
-buildings[5] = new Building("Build-a-Parker", 1400000, 1400);
+buildings[5] = new Building("Park-a-Stan", 1400000, 1400);
 buildings[6] = new Building("Sbeve", 20000000, 7800);
 buildings[7] = new Building("Dubai Portal", 330000000, 44000);
 buildings[8] = new Building("Art Hoe Convention", 5100000000, 260000);
@@ -66,6 +66,10 @@ document.getElementById("building8").addEventListener("click", () => {
 document.getElementById("building9").addEventListener("click", () => {
     buyBuilding(9);
 });
+
+// Sounds
+var bruhSound = new Audio("sounds/bruh.mp3");
+var winkSound = new Audio("sounds/gameboy.mp3");
 
 // Animation variables
 var blinkCounter = 0;
@@ -207,6 +211,11 @@ function animate() {
 
 function updateCount() {
     document.getElementById("parkersBaked").textContent = shortenNumString(Math.floor(totalParkers), 3);
+    if (totalParkers > 999999) {
+        document.getElementById("parkersBakedUnit").style.display = "block";
+    } else {
+        document.getElementById("parkersBakedUnit").style.display = "inline";
+    }
 }
 
 function buyBuilding(buildingNo) {
@@ -284,7 +293,7 @@ function blink() {
                 }
                 document.getElementById("babyParkerWink").style.opacity = 1.0;
                 if (!muted) {
-                    let wink = new Audio("sounds/gameboy.mp3");
+                    let wink = winkSound.cloneNode();
                     wink.play();
                 }
             } else if (blinkCounter == 80 + randomInterval) {
@@ -330,7 +339,7 @@ function getRandomInt(min, max) {
 
 function surprise() {
     if (!muted) {
-        let bruh = new Audio("sounds/bruh.mp3");
+        let bruh = bruhSound.cloneNode();
         bruh.play();
     }
 }

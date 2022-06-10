@@ -13,7 +13,9 @@ body {
 }
 
 .clicker {
-    width: 30%;
+    flex-basis: 30%;
+    flex-grow: 0;
+    flex-shrink: 0;
     height: 100%;
     border-right: 10px solid white;
     -webkit-user-drag: none;
@@ -25,9 +27,9 @@ body {
 }
 
 .middle-display {
-    margin: auto;
-    width: 55%;
-    overflow-y: auto;
+    flex-basis: 55%;
+    flex-shrink: 1;
+    flex-grow: 1;
     border-right: 10px solid white;
     display: flex;
     flex-direction: column;
@@ -36,23 +38,23 @@ body {
 }
 
 .store {
+    flex-basis: 15%;
     flex-grow: 0;
     flex-shrink: 1;
-    flex-basis: 385px;
-    min-width: 365px;
     display: table-column;
     box-shadow: inset 0px 0px 20px 5px #000000;
     overflow-y: auto;
+    min-width: 29vh;
 }
 
 .item {
-    height: 90px;
-    margin: auto;
+    height: 6.75vh;
+    width: 100%;
     display: flex;
     text-align: left;
     color: #00ff00;
     background-image: url('images/storeTileTest.png');
-    background-size: 385px;
+    background-size: 100%;
     user-select: none;
 }
 
@@ -72,20 +74,20 @@ body {
     flex-shrink: 1;
     display: flex;
     flex-direction: column;
-    padding-left: 13px;
+    padding-left: 0.5vh;
 }
 
 .itemName {
     display: inline;
     color: #ffffff;
-    text-shadow: 2px 2px 8px #000000;
-    font-size: 30px;
-    padding-top: 12px;
+    text-shadow: 0.2vh 0.2vh 0.6vh #000000;
+    font-size: 2.35vh;
+    padding-top: 0.7vh;
 }
 
 .itemCost {
-    text-shadow: 2px 2px 8px #000000;
-    font-size: 20px;
+    text-shadow: 0.2vh 0.2vh 0.6vh #000000;
+    font-size: 1.5vh;
 }
 
 .itemNum {
@@ -96,16 +98,14 @@ body {
 .itemNumText {
     opacity: 70%;
     color: #3b3b3b;
-    font-size: 45px;
-    padding-top: 14px;
-    padding-right: 5px;
+    font-size: 3.4vh;
+    padding-top: 1vh;
+    padding-right: 0.35vh;
 }
 
 .itemIcon {
-    flex-basis: 60px;
-    flex-grow: 0;
-    flex-shrink: 0;
-    padding-top: 9px;
+    height: 6.05vh;
+    padding-top: 0.7vh;
 }
 
 .clickerText {
@@ -133,6 +133,29 @@ body {
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
+}
+
+.parkersBaked {
+    display: inline;
+    color: white;
+    font-size: 5vh;
+}
+
+.parkersBakedUnit {
+    display: inline;
+    color: white;
+    font-size: 5vh;
+}
+
+.persecondDiv {
+    display: block;
+    padding-bottom: 8px;
+}
+
+.parkerPerSecond {
+    display: inline;
+    color: white;
+    font-size: 2.4vh;
 }
 
 .topBar {
@@ -235,23 +258,6 @@ body {
     100% { transform: scale(1.0)}
 }
 
-.parkersBaked {
-    display: inline;
-    color: white;
-    font-size: 60px;
-}
-
-.persecondDiv {
-    display: block;
-    padding-bottom: 8px;
-}
-
-.parkerPerSecond {
-    display: inline;
-    color: white;
-    font-size: 30px;
-}
-
 .flex-container {
     display: flex;
     height: 100%;
@@ -276,6 +282,7 @@ body {
 
 .updateLog {
     color: white;
+    background-image: url("images/darkNoise.jpg");
 }
 
 .logEntry {
